@@ -86,9 +86,4 @@ int main(int argc, char *argv[])
 [Manuel Freiholz](https://mfreiholz.de), Project Maintainer
 
 ## License information
-![WTFPL](license.png)
-
-This projects uses the [WTFPL license](http://www.wtfpl.net/)
-(Do **W**hat **T**he **F**uck You Want To **P**ublic **L**icense)
-
-Using it? Let us know by creating a [new issue](https://github.com/mfreiholz/qt-docks/issues/new) (You don't have to, of course).
+The original project was based on the [WTFPL](http://www.wtfpl.net/) license, this one will be licensed under the BSD 3 Clauses
