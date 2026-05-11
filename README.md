@@ -1,4 +1,4 @@
-# Advanced Docking System for Qt
+# BSD Advanced Docking System (b-ads) for Qt
 [![Gitter](https://badges.gitter.im/mfreiholz/Qt-Advanced-Docking-System.svg)](https://gitter.im/mfreiholz/Qt-Advanced-Docking-System?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 Manages content widgets more like Visual Studio or similar programs.
