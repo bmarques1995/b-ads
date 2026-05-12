@@ -4,9 +4,9 @@
 #include <QDialog>
 #include "ui_SectionContentListWidget.h"
 
-#include "ads/API.h"
-#include "ads/ContainerWidget.h"
-#include "ads/SectionContent.h"
+#include "API.h"
+#include "ContainerWidget.h"
+#include "SectionContent.h"
 
 class SectionContentListWidget : public QDialog
 {

@@ -9,15 +9,15 @@ option(B_ADS_BUILD_TESTS "Build sample programs" OFF)
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake;${CMAKE_MODULE_PATH})
 include(resource_processor)
 
-#find_package(Qt6 COMPONENTS Core Gui Widgets)
-#find_program(QT_LRELEASE lrelease REQUIRED)
-#find_program(QT_RCC rcc REQUIRED)
+find_package(Qt6 COMPONENTS Core Gui Widgets Test)
+find_program(QT_LRELEASE lrelease REQUIRED)
+find_program(QT_RCC rcc REQUIRED)
 
-#set(CMAKE_AUTOMOC ON)
-#set(CMAKE_AUTORCC ON)
-#set(CMAKE_AUTOUIC ON)
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
+set(CMAKE_AUTOUIC ON)
 
-#set(QT_AUTOGEN_SUFFIX "_autogen")
+set(QT_AUTOGEN_SUFFIX "_autogen")
 
 add_subdirectory(b_ads)
 if(B_ADS_BUILD_SAMPLES)
