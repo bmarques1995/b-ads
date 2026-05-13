@@ -1,10 +1,9 @@
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#pragma once
 
 #include <QMainWindow>
-#include "ads/API.h"
-#include "ads/ContainerWidget.h"
-#include "ads/SectionContent.h"
+#include "API.h"
+#include "ContainerWidget.h"
+#include "SectionContent.h"
 
 namespace Ui {
 class MainWindow;
@@ -23,8 +22,8 @@ public slots:
 
 private slots:
 #if QT_VERSION >= 0x050000
-	void onActiveTabChanged(const ADS_NS::SectionContent::RefPtr& sc, bool active);
-	void onSectionContentVisibilityChanged(const ADS_NS::SectionContent::RefPtr& sc, bool visible);
+	void onActiveTabChanged(const B_ADS_NS::SectionContent::RefPtr& sc, bool active);
+	void onSectionContentVisibilityChanged(const B_ADS_NS::SectionContent::RefPtr& sc, bool visible);
 #else
 	void onActiveTabChanged(const SectionContent::RefPtr& sc, bool active);
 	void onSectionContentVisibilityChanged(const SectionContent::RefPtr& sc, bool visible);
@@ -37,7 +36,5 @@ protected:
 
 private:
 	Ui::MainWindow *ui;
-	ADS_NS::ContainerWidget* _container;
+	B_ADS_NS::ContainerWidget* _container;
 };
-
-#endif // MAINWINDOW_H

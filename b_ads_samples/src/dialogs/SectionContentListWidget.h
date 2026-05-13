@@ -16,7 +16,7 @@ public:
 	class Values
 	{
 	public:
-		ADS_NS::ContainerWidget* cw;
+		B_ADS_NS::ContainerWidget* cw;
 	};
 
 	SectionContentListWidget(QWidget* parent);

@@ -22,7 +22,7 @@ class SectionContentWidget;
 // SectionWidget manages multiple instances of SectionContent.
 // It displays a title TAB, which is clickable and will switch to
 // the contents associated to the title when clicked.
-class ADS_EXPORT_API SectionWidget : public QFrame
+class B_ADS_EXPORT_API SectionWidget : public QFrame
 {
 	Q_OBJECT
 	friend class ContainerWidget;

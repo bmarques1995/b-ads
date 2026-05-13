@@ -13,7 +13,7 @@ SectionContentListModel::~SectionContentListModel()
 {
 }
 
-void SectionContentListModel::init(ADS_NS::ContainerWidget* cw)
+void SectionContentListModel::init(B_ADS_NS::ContainerWidget* cw)
 {
 #if QT_VERSION >= 0x050000
 	beginResetModel();
@@ -51,7 +51,7 @@ QVariant SectionContentListModel::data(const QModelIndex& index, int role) const
 	if (!index.isValid() || index.row() > rowCount(index) - 1)
 		return QVariant();
 
-	const ADS_NS::SectionContent::RefPtr sc = _contents.at(index.row());
+	const B_ADS_NS::SectionContent::RefPtr sc = _contents.at(index.row());
 	if (sc.isNull())
 		return QVariant();
 
@@ -86,7 +86,7 @@ bool SectionContentListModel::removeRows(int row, int count, const QModelIndex& 
 
 	for (int i = last; i >= first; --i)
 	{
-		const ADS_NS::SectionContent::RefPtr sc = _contents.at(i);
+		const B_ADS_NS::SectionContent::RefPtr sc = _contents.at(i);
 		_cw->removeSectionContent(sc);
 		_contents.removeAt(i);
 	}

@@ -17,3 +17,7 @@ if(WIN32)
 elseif(APPLE)
     set_target_properties(${TARGET_NAME} PROPERTIES MACOSX_BUNDLE TRUE)
 endif()
+
+install(TARGETS ${TARGET_NAME}
+        RUNTIME DESTINATION "bin"
+        COMPONENT ${PACKAGE_COMPONENT})

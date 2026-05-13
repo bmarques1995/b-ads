@@ -134,7 +134,7 @@ private:
 	void saveFloatingWidgets(QDataStream& out) const;
 	void saveSectionWidgets(QDataStream& out, QWidget* widget) const;
 
-	bool saveSectionIndex(ADS_NS_SER::SectionIndexData &sid) const;
+	bool saveSectionIndex(B_ADS_NS_SER::SectionIndexData &sid) const;
 
 	bool restoreHierarchy(const QByteArray& data);
 	bool restoreFloatingWidgets(QDataStream& in, int version, QList<FloatingWidget*>& floatings);

@@ -1,2 +1,9 @@
 *.pro.user
+.vs/
 out/
+cmake_helpers/
+modules/
+dependencies/
+[Ww]indows/
+[Ll]inux/
+[Ff]ree[Bb][Ss][Dd]/

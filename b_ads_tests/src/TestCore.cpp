@@ -1,7 +1,7 @@
 #include "TestCore.h"
 
-#include "ads/API.h"
-#include "ads/Serialization.h"
+#include "API.h"
+#include "Serialization.h"
 
 void TestCore::serialization()
 {
@@ -11,17 +11,17 @@ void TestCore::serialization()
 	datas.append(QByteArray("lalalaalalalalalalal").toBase64());
 
 	// WRITE some data.
-	ADS_NS_SER::InMemoryWriter writer;
+	B_ADS_NS_SER::InMemoryWriter writer;
 	for (int i = 0; i < datas.count(); ++i)
 	{
-		QVERIFY(writer.write(ADS_NS_SER::ET_Custom + i, datas.at(i)));
+		QVERIFY(writer.write(B_ADS_NS_SER::ET_Custom + i, datas.at(i)));
 	}
 
 	// Type: SectionIndexData
-	ADS_NS_SER::SectionIndexData sid;
+	B_ADS_NS_SER::SectionIndexData sid;
 	for (int i = 0; i < 1; ++i)
 	{
-		ADS_NS_SER::SectionEntity se;
+		B_ADS_NS_SER::SectionEntity se;
 		se.x = i;
 		se.y = i;
 		se.width = 100 + i;
@@ -30,7 +30,7 @@ void TestCore::serialization()
 
 		for (int j = 0; j < 1; ++j)
 		{
-			ADS_NS_SER::SectionContentEntity sce;
+			B_ADS_NS_SER::SectionContentEntity sce;
 			sce.uniqueName = QString("uname-%1-%2").arg(i).arg(j);
 			sce.preferredIndex = 8;
 			sce.visible = true;
@@ -48,18 +48,18 @@ void TestCore::serialization()
 	QVERIFY(writtenData.size() > 0);
 
 	// READ and validate written data.
-	ADS_NS_SER::InMemoryReader reader(writtenData);
+	B_ADS_NS_SER::InMemoryReader reader(writtenData);
 	QVERIFY(reader.initReadHeader());
 	QVERIFY(reader.offsetsCount() == datas.count() + 1);
 	for (int i = 0; i < datas.count(); ++i)
 	{
 		QByteArray readData;
-		QVERIFY(reader.read(ADS_NS_SER::ET_Custom + i, readData));
+		QVERIFY(reader.read(B_ADS_NS_SER::ET_Custom + i, readData));
 		QVERIFY(readData == datas.at(i));
 	}
 
 	// Type: SectionIndexData
-	ADS_NS_SER::SectionIndexData sidRead;
+	B_ADS_NS_SER::SectionIndexData sidRead;
 	QVERIFY(reader.read(sidRead));
 
 	// TODO compare sidRead with sid

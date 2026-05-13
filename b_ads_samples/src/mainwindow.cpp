@@ -10,8 +10,8 @@
 #include <QFileSystemModel>
 #include <QBoxLayout>
 
-#include "ads/SectionWidget.h"
-#include "ads/DropOverlay.h"
+#include "SectionWidget.h"
+#include "DropOverlay.h"
 
 #include "dialogs/SectionContentListWidget.h"
 
@@ -21,7 +21,7 @@
 
 static int CONTENT_COUNT = 0;
 
-static ADS_NS::SectionContent::RefPtr createLongTextLabelSC(ADS_NS::ContainerWidget* container)
+static B_ADS_NS::SectionContent::RefPtr createLongTextLabelSC(B_ADS_NS::ContainerWidget* container)
 {
 	QWidget* w = new QWidget();
 	QBoxLayout* bl = new QBoxLayout(QBoxLayout::TopToBottom);
@@ -34,20 +34,20 @@ static ADS_NS::SectionContent::RefPtr createLongTextLabelSC(ADS_NS::ContainerWid
 	bl->addWidget(l);
 
 	const int index = ++CONTENT_COUNT;
-	ADS_NS::SectionContent::RefPtr sc = ADS_NS::SectionContent::newSectionContent(QString("uname-%1").arg(index), container, new IconTitleWidget(QIcon(), QString("Label %1").arg(index)), w);
+	B_ADS_NS::SectionContent::RefPtr sc = B_ADS_NS::SectionContent::newSectionContent(QString("uname-%1").arg(index), container, new IconTitleWidget(QIcon(), QString("Label %1").arg(index)), w);
 	sc->setTitle("Ein Label " + QString::number(index));
 	return sc;
 }
 
-static ADS_NS::SectionContent::RefPtr createCalendarSC(ADS_NS::ContainerWidget* container)
+static B_ADS_NS::SectionContent::RefPtr createCalendarSC(B_ADS_NS::ContainerWidget* container)
 {
 	QCalendarWidget* w = new QCalendarWidget();
 
 	const int index = ++CONTENT_COUNT;
-	return ADS_NS::SectionContent::newSectionContent(QString("uname-%1").arg(index), container, new IconTitleWidget(QIcon(), QString("Calendar %1").arg(index)), w);
+	return B_ADS_NS::SectionContent::newSectionContent(QString("uname-%1").arg(index), container, new IconTitleWidget(QIcon(), QString("Calendar %1").arg(index)), w);
 }
 
-static ADS_NS::SectionContent::RefPtr createFileSystemTreeSC(ADS_NS::ContainerWidget* container)
+static B_ADS_NS::SectionContent::RefPtr createFileSystemTreeSC(B_ADS_NS::ContainerWidget* container)
 {
 	QTreeView* w = new QTreeView();
 	w->setFrameShape(QFrame::NoFrame);
@@ -56,7 +56,7 @@ static ADS_NS::SectionContent::RefPtr createFileSystemTreeSC(ADS_NS::ContainerWi
 	//	w->setModel(m);
 
 	const int index = ++CONTENT_COUNT;
-	return ADS_NS::SectionContent::newSectionContent(QString("uname-%1").arg(index), container, new IconTitleWidget(QIcon(), QString("Filesystem %1").arg(index)), w);
+	return B_ADS_NS::SectionContent::newSectionContent(QString("uname-%1").arg(index), container, new IconTitleWidget(QIcon(), QString("Filesystem %1").arg(index)), w);
 }
 
 static void storeDataHelper(const QString& fname, const QByteArray& ba)
@@ -93,10 +93,10 @@ MainWindow::MainWindow(QWidget *parent) :
 	QObject::connect(ui->actionContentList, SIGNAL(triggered()), this, SLOT(showSectionContentListDialog()));
 
 	// ADS - Create main container (ContainerWidget).
-	_container = new ADS_NS::ContainerWidget();
+	_container = new B_ADS_NS::ContainerWidget();
 #if QT_VERSION >= 0x050000
-	QObject::connect(_container, &ADS_NS::ContainerWidget::activeTabChanged, this, &MainWindow::onActiveTabChanged);
-	QObject::connect(_container, &ADS_NS::ContainerWidget::sectionContentVisibilityChanged, this, &MainWindow::onSectionContentVisibilityChanged);
+	QObject::connect(_container, &B_ADS_NS::ContainerWidget::activeTabChanged, this, &MainWindow::onActiveTabChanged);
+	QObject::connect(_container, &B_ADS_NS::ContainerWidget::sectionContentVisibilityChanged, this, &MainWindow::onSectionContentVisibilityChanged);
 #else
 	QObject::connect(_container, SIGNAL(activeTabChanged(const SectionContent::RefPtr&, bool)), this, SLOT(onActiveTabChanged(const SectionContent::RefPtr&, bool)));
 	QObject::connect(_container, SIGNAL(sectionContentVisibilityChanged(SectionContent::RefPtr,bool)), this, SLOT(onSectionContentVisibilityChanged(SectionContent::RefPtr,bool)));
@@ -106,12 +106,12 @@ MainWindow::MainWindow(QWidget *parent) :
 	// Optional: Use custom drop area widgets.
 	if (false)
 	{
-		QHash<ADS_NS::DropArea, QWidget*> areaWidgets;
-		areaWidgets.insert(ADS_NS::TopDropArea, new QPushButton("TOP"));
-		areaWidgets.insert(ADS_NS::RightDropArea, new QPushButton("RIGHT"));
-		areaWidgets.insert(ADS_NS::BottomDropArea, new QPushButton("BOTTOM"));
-		areaWidgets.insert(ADS_NS::LeftDropArea, new QPushButton("LEFT"));
-		areaWidgets.insert(ADS_NS::CenterDropArea, new QPushButton("CENTER"));
+		QHash<B_ADS_NS::DropArea, QWidget*> areaWidgets;
+		areaWidgets.insert(B_ADS_NS::TopDropArea, new QPushButton("TOP"));
+		areaWidgets.insert(B_ADS_NS::RightDropArea, new QPushButton("RIGHT"));
+		areaWidgets.insert(B_ADS_NS::BottomDropArea, new QPushButton("BOTTOM"));
+		areaWidgets.insert(B_ADS_NS::LeftDropArea, new QPushButton("LEFT"));
+		areaWidgets.insert(B_ADS_NS::CenterDropArea, new QPushButton("CENTER"));
 		_container->dropOverlay()->setAreaWidgets(areaWidgets);
 	}
 
@@ -119,35 +119,35 @@ MainWindow::MainWindow(QWidget *parent) :
 	if (true)
 	{
 		// Test #1: Use high-level public API
-		ADS_NS::ContainerWidget* cw = _container;
-		ADS_NS::SectionWidget* sw = NULL;
+		B_ADS_NS::ContainerWidget* cw = _container;
+		B_ADS_NS::SectionWidget* sw = NULL;
 
-		sw = _container->addSectionContent(createLongTextLabelSC(cw), sw, ADS_NS::CenterDropArea);
-		sw = _container->addSectionContent(createCalendarSC(cw), sw, ADS_NS::RightDropArea);
-		sw = _container->addSectionContent(createFileSystemTreeSC(cw), sw, ADS_NS::CenterDropArea);
+		sw = _container->addSectionContent(createLongTextLabelSC(cw), sw, B_ADS_NS::CenterDropArea);
+		sw = _container->addSectionContent(createCalendarSC(cw), sw, B_ADS_NS::RightDropArea);
+		sw = _container->addSectionContent(createFileSystemTreeSC(cw), sw, B_ADS_NS::CenterDropArea);
 
 		_container->addSectionContent(createCalendarSC(_container));
 		_container->addSectionContent(createLongTextLabelSC(_container));
 		_container->addSectionContent(createLongTextLabelSC(_container));
 		_container->addSectionContent(createLongTextLabelSC(_container));
 
-		ADS_NS::SectionContent::RefPtr sc = createLongTextLabelSC(cw);
-		sc->setFlags(ADS_NS::SectionContent::AllFlags ^ ADS_NS::SectionContent::Closeable);
+		B_ADS_NS::SectionContent::RefPtr sc = createLongTextLabelSC(cw);
+		sc->setFlags(B_ADS_NS::SectionContent::Flags(B_ADS_NS::SectionContent::AllFlags ^ B_ADS_NS::SectionContent::Closeable));
 		_container->addSectionContent(sc);
 	}
 	else if (false)
 	{
 		// Issue #2: If the first drop is not into CenterDropArea, the application crashes.
-		ADS_NS::ContainerWidget* cw = _container;
-		ADS_NS::SectionWidget* sw = NULL;
+		B_ADS_NS::ContainerWidget* cw = _container;
+		B_ADS_NS::SectionWidget* sw = NULL;
 
-		sw = _container->addSectionContent(createLongTextLabelSC(cw), sw, ADS_NS::LeftDropArea);
-		sw = _container->addSectionContent(createCalendarSC(cw), sw, ADS_NS::LeftDropArea);
-		sw = _container->addSectionContent(createLongTextLabelSC(cw), sw, ADS_NS::CenterDropArea);
-		sw = _container->addSectionContent(createLongTextLabelSC(cw), sw, ADS_NS::CenterDropArea);
-		sw = _container->addSectionContent(createLongTextLabelSC(cw), sw, ADS_NS::CenterDropArea);
-		sw = _container->addSectionContent(createLongTextLabelSC(cw), sw, ADS_NS::RightDropArea);
-		sw = _container->addSectionContent(createLongTextLabelSC(cw), sw, ADS_NS::BottomDropArea);
+		sw = _container->addSectionContent(createLongTextLabelSC(cw), sw, B_ADS_NS::LeftDropArea);
+		sw = _container->addSectionContent(createCalendarSC(cw), sw, B_ADS_NS::LeftDropArea);
+		sw = _container->addSectionContent(createLongTextLabelSC(cw), sw, B_ADS_NS::CenterDropArea);
+		sw = _container->addSectionContent(createLongTextLabelSC(cw), sw, B_ADS_NS::CenterDropArea);
+		sw = _container->addSectionContent(createLongTextLabelSC(cw), sw, B_ADS_NS::CenterDropArea);
+		sw = _container->addSectionContent(createLongTextLabelSC(cw), sw, B_ADS_NS::RightDropArea);
+		sw = _container->addSectionContent(createLongTextLabelSC(cw), sw, B_ADS_NS::BottomDropArea);
 	}
 
 	// Default window geometry
@@ -173,7 +173,7 @@ void MainWindow::showSectionContentListDialog()
 	w.exec();
 }
 
-void MainWindow::onActiveTabChanged(const ADS_NS::SectionContent::RefPtr& sc, bool active)
+void MainWindow::onActiveTabChanged(const B_ADS_NS::SectionContent::RefPtr& sc, bool active)
 {
 	Q_UNUSED(active);
 	IconTitleWidget* itw = dynamic_cast<IconTitleWidget*>(sc->titleWidget());
@@ -183,7 +183,7 @@ void MainWindow::onActiveTabChanged(const ADS_NS::SectionContent::RefPtr& sc, bo
 	}
 }
 
-void MainWindow::onSectionContentVisibilityChanged(const ADS_NS::SectionContent::RefPtr& sc, bool visible)
+void MainWindow::onSectionContentVisibilityChanged(const B_ADS_NS::SectionContent::RefPtr& sc, bool visible)
 {
 	qDebug() << Q_FUNC_INFO << sc->uniqueName() << visible;
 }
